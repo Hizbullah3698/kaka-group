@@ -1,0 +1,26 @@
+{
+  "name": "KAKA Group of Companies",
+  "short_name": "KAKA Group",
+  "description": "Dubai business group: real estate, dry fruits trading, fleet management, automotive service and vehicle import and export.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F8F6F2",
+  "theme_color": "#0F172A",
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/assets/kaka-mark.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/kaka-mark.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

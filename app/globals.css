@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Mirrors lib/tokens.ts. Kept in sync by hand — this is the escape hatch
+       for raw CSS / non-Tailwind contexts (e.g. inline <style>, third-party
+       embeds) that can't reach a Tailwind class. Prefer Tailwind utilities
+       or lib/tokens.ts in TS/TSX; use these only where neither is reachable. */
+    --color-ink: #0f172a;
+    --color-ink-deep: #0b1220;
+    --color-ink-card: #111c31;
+    --color-cream: #f8f6f2;
+    --color-cream-alt: #fcfbf8;
+    --color-gold: #c9a45c;
+    --color-gold-hover: #d9b876;
+    --color-gold-dark: #8a6a2f;
+    --color-graphite: #4a5568;
+    --ease-kaka: cubic-bezier(0.22, 0.61, 0.36, 1);
+    /* Mirrors tailwind.config.ts spacing.header. Used where an arbitrary
+       Tailwind value needs to do arithmetic against the header height
+       (e.g. the mobile drawer's max-height) and can't reach theme(). */
+    --header-height: 105px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: theme("colors.gold-dark");
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  a:hover {
+    color: theme("colors.gold");
+  }
+
+  ::selection {
+    background: rgba(201, 164, 92, 0.28);
+  }
+
+  /* Global focus-visible ring. Matches the approved handoff exactly:
+     2px gold outline, 3px offset, on every interactive element. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid theme("colors.gold");
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  /* Skip-to-content link. Hidden above the viewport until keyboard focus. */
+  .skip-link {
+    position: fixed;
+    left: 16px;
+    top: -70px;
+    z-index: theme("zIndex.skip");
+    background: theme("colors.ink");
+    color: theme("colors.cream");
+    border: 1px solid theme("colors.gold");
+    border-radius: theme("borderRadius.sm");
+    padding: 13px 22px;
+    font-size: 14px;
+    transition: top 160ms ease;
+  }
+
+  .skip-link:focus {
+    top: 16px;
+  }
+
+  /* Content wrapper: 1400px max width, 22px gutters under 768px, 40px above.
+     Used on almost every section — this is the one global layout primitive
+     worth a class instead of repeating `max-w-content mx-auto px-gutter-sm
+     sm:px-gutter` everywhere it's needed. */
+  .wrap {
+    @apply mx-auto max-w-content px-gutter-sm sm:px-gutter;
+  }
+
+  /* Section vertical rhythm: 86px under 768px, 108px from 768px, 146px from
+     1200px. Flush variants exist because a handful of sections (full-bleed
+     image grids, some CTA bands) omit top or bottom padding by design. */
+  .section-y {
+    @apply py-section-sm sm:py-section-md lg:py-section-lg;
+  }
+
+  .section-y-flush-top {
+    @apply pb-section-sm pt-0 sm:pb-section-md lg:pb-section-lg;
+  }
+
+  .section-y-flush-bottom {
+    @apply pt-section-sm pb-0 sm:pt-section-md lg:pt-section-lg;
+  }
+
+  /* Scroll-reveal primitive, kept as the original design system's
+     attribute-selector convention (`[data-reveal]`) rather than a class, so
+     RevealOnScroll (Phase 4) can apply it declaratively in JSX as
+     `<div data-reveal>` — closer to the approved reference markup, and reads
+     naturally as "this element participates in scroll reveal" rather than a
+     styling class. `RevealOnScroll` toggles the `is-in` attribute value via
+     IntersectionObserver; per-element stagger is a `transition-delay`
+     applied at the component level (inherently per-instance, not a fixed
+     token). Duration/easing here are the tokenized, confirmed values. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity theme("transitionDuration.780") theme("transitionTimingFunction.kaka"),
+      transform theme("transitionDuration.780") theme("transitionTimingFunction.kaka");
+  }
+
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal-line] {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform theme("transitionDuration.900") theme("transitionTimingFunction.kaka");
+  }
+
+  [data-reveal-line].is-in {
+    transform: scaleX(1);
+  }
+}
+
+/* heroProg (division-indicator progress fill, Phase 5/6) is the one
+   remaining keyframe with a confirmed shape but a dynamic duration — it's
+   tied to the hero crossfade interval, which is per-instance, so it can't
+   be a fixed Tailwind `animate-*` utility. Applied via inline
+   `style={{ animation: "..." }}` once the owning component knows its own
+   timing. kbHero and pinPulse used to live here for the same reason but
+   both now have confirmed fixed durations from source (Contact's hero and
+   deira-map.html respectively), so they've been promoted to
+   tailwind.config.ts's `animation` theme as `animate-ken-burns` and
+   `animate-pin-pulse` instead of staying as raw keyframes. */
+@keyframes heroProg {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* DeiraOfficeMap — Leaflet override CSS, scoped under `.kaka-deira-map` so
+   it can't leak into any other map on the site (TradeMap/ExportRoutesMap
+   are plain SVG, not Leaflet, so there's no overlap today, but scoping
+   keeps it that way). Values copied directly from `deira-map.html`'s own
+   embedded <style> block: a dark tile-invert filter standing in for a real
+   dark basemap style, and gold-on-ink recoloring of Leaflet's attribution
+   and zoom controls. The pin/tooltip markup itself is generated by
+   DeiraOfficeMap.tsx (Tailwind's `animate-pin-pulse` handles the ring
+   animation there), so only their static box styling lives here. */
+.kaka-deira-map {
+  position: relative;
+  background: #0b1220;
+}
+
+.kaka-deira-map .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(185deg) saturate(0.28) brightness(0.82) contrast(1.08);
+}
+
+.kaka-deira-map .leaflet-container {
+  background: #0b1220;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.kaka-deira-map .leaflet-control-attribution {
+  background: rgba(11, 18, 32, 0.78) !important;
+  color: rgba(248, 246, 242, 0.55) !important;
+  font-size: 9px !important;
+  letter-spacing: 0.04em;
+  border-top-left-radius: 6px;
+}
+
+.kaka-deira-map .leaflet-control-attribution a {
+  color: rgba(201, 164, 92, 0.85) !important;
+}
+
+.kaka-deira-map .leaflet-control-zoom a {
+  background: rgba(11, 18, 32, 0.88) !important;
+  color: #c9a45c !important;
+  border-color: rgba(201, 164, 92, 0.35) !important;
+}
+
+.kaka-deira-map .leaflet-control-zoom a:hover {
+  background: rgba(201, 164, 92, 0.16) !important;
+}
+
+.kaka-deira-pin-dot {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #c9a45c;
+  border-radius: 50%;
+  background: #0b1220;
+  box-shadow: 0 0 0 6px rgba(201, 164, 92, 0.14);
+}
+
+.kaka-deira-pin-ring {
+  position: absolute;
+  inset: -6px;
+  border: 1px solid rgba(201, 164, 92, 0.7);
+  border-radius: 50%;
+}
+
+.kaka-deira-tooltip.leaflet-tooltip {
+  background: rgba(11, 18, 32, 0.88);
+  border: 1px solid rgba(201, 164, 92, 0.4);
+  border-radius: 8px;
+  padding: 9px 14px;
+  color: #f8f6f2;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(11, 18, 32, 0.45);
+}
+
+.kaka-deira-tooltip.leaflet-tooltip::before {
+  display: none;
+}
+
+/* Reduced motion: collapse every animation/transition to effectively instant
+   and force scroll-reveal elements to their visible end state, matching the
+   approved handoff. This is a deliberate global rule rather than per-component
+   `motion-reduce:` variants, so nothing can accidentally opt out of it. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-reveal-line] {
+    transform: none !important;
+  }
+}

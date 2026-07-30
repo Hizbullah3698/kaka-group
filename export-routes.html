@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #0B1220; overflow: hidden; }
+  svg { display: block; width: 100%; height: 100%; }
+  .lbl { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; }
+  .src { fill: rgba(248,246,242,.62); }
+  .dst { fill: #C9A45C; }
+  .hub { fill: #F8F6F2; font-size: 10.5px; letter-spacing: .26em; }
+  @keyframes drawArc { from { stroke-dashoffset: var(--len) } to { stroke-dashoffset: 0 } }
+  path.arc { animation: drawArc 1900ms cubic-bezier(.4,0,.2,1) both; }
+</style>
+</head>
+<body>
+<svg id="map"></svg>
+<script>
+const HUB = { n: 'Dubai', c: [55.30, 25.27] };
+const SOURCE = [{ n: 'United States', c: [-98.0, 39.0], side: 'right', dy: 0 }];
+const DEST = [
+  { n: 'Georgia', c: [43.5, 42.3], side: 'left', dy: -6 },
+  { n: 'Iraq', c: [43.7, 33.2], side: 'left', dy: 4 }
+];
+
+async function draw() {
+  const svg = d3.select('#map');
+  const w = window.innerWidth, h = window.innerHeight;
+  svg.selectAll('*').remove();
+  svg.attr('viewBox', '0 0 ' + w + ' ' + h);
+
+  const topo = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json');
+  const land = topojson.feature(topo, topo.objects.countries);
+  const proj = d3.geoNaturalEarth1().fitExtent([[26, 34], [w - 26, h - 34]], land);
+  const path = d3.geoPath(proj);
+
+  svg.append('g').selectAll('path').data(land.features).join('path')
+    .attr('d', path).attr('fill', '#16233B')
+    .attr('stroke', 'rgba(201,164,92,.2)').attr('stroke-width', .6);
+
+  const hubXY = proj(HUB.c);
+  const arc = (from, to, lift, dashed, delay) => {
+    const a = proj(from), b = proj(to);
+    const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - Math.abs(a[0] - b[0]) * lift;
+    const el = svg.append('path')
+      .attr('d', 'M' + a[0] + ',' + a[1] + ' Q' + mx + ',' + my + ' ' + b[0] + ',' + b[1])
+      .attr('fill', 'none')
+      .attr('stroke', dashed ? 'rgba(201,164,92,.85)' : 'rgba(248,246,242,.5)')
+      .attr('stroke-width', dashed ? 1.3 : 1);
+    const len = el.node().getTotalLength();
+    el.attr('class', 'arc').attr('stroke-dasharray', len).attr('stroke-dashoffset', 0)
+      .style('--len', len + 'px').style('animation-delay', delay + 'ms');
+  };
+
+  const node = (d, cls, r) => {
+    const p = proj(d.c);
+    svg.append('circle').attr('cx', p[0]).attr('cy', p[1]).attr('r', r)
+      .attr('fill', '#0B1220').attr('stroke', cls === 'dst' ? '#C9A45C' : 'rgba(248,246,242,.75)').attr('stroke-width', 1.2);
+    svg.append('text').attr('class', 'lbl ' + cls)
+      .attr('x', d.side === 'left' ? p[0] - 11 : p[0] + 11)
+      .attr('y', p[1] + 3.5 + (d.dy || 0))
+      .attr('text-anchor', d.side === 'left' ? 'end' : 'start')
+      .text(d.n);
+  };
+
+  SOURCE.forEach((d) => { arc(d.c, HUB.c, .18, false, 250); node(d, 'src', 3.4); });
+  DEST.forEach((d, i) => { arc(HUB.c, d.c, .3, true, 900 + i * 260); node(d, 'dst', 3.4); });
+
+  svg.append('circle').attr('cx', hubXY[0]).attr('cy', hubXY[1]).attr('r', 15)
+    .attr('fill', 'rgba(201,164,92,.13)').attr('stroke', 'rgba(201,164,92,.4)');
+  svg.append('circle').attr('cx', hubXY[0]).attr('cy', hubXY[1]).attr('r', 5).attr('fill', '#C9A45C');
+  svg.append('text').attr('class', 'lbl hub')
+    .attr('x', hubXY[0]).attr('y', hubXY[1] + 33).attr('text-anchor', 'middle').text('UAE');
+}
+
+draw();
+let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 250); });
+</script>
+</body>
+</html>
