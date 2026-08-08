@@ -15,7 +15,7 @@ const socialTiles = [
 ] as const;
 
 const linkClasses =
-  "text-body text-cream/75 transition-colors duration-220 ease-kaka hover:text-cream";
+  "block text-body text-cream/75 transition-colors duration-220 ease-kaka hover:text-cream max-sm:py-[7px]";
 
 /**
  * Shared footer. Only genuinely dynamic per route: the fourth "tt" social
@@ -91,7 +91,7 @@ export function SiteFooter() {
             </p>
             <a
               href={`tel:${siteConfig.phone.tel}`}
-              className="border-b border-gold/50 pb-1 text-body text-cream transition-colors duration-220 ease-kaka hover:border-gold"
+              className="border-b border-gold/50 pb-1 text-body text-cream transition-colors duration-220 ease-kaka hover:border-gold max-sm:inline-block max-sm:py-[7px]"
             >
               {siteConfig.phone.display}
             </a>
@@ -105,7 +105,7 @@ export function SiteFooter() {
                     aria-label={tile.name}
                     target={external ? "_blank" : undefined}
                     rel={external ? "noopener noreferrer" : undefined}
-                    className="flex h-[42px] w-[42px] items-center justify-center rounded-sm border border-cream/24 font-mono text-[11px] text-cream/80 transition-colors duration-220 ease-kaka hover:border-gold hover:text-gold"
+                    className="flex h-11 w-11 items-center justify-center rounded-sm border border-cream/24 font-mono text-[11px] text-cream/80 transition-colors duration-220 ease-kaka hover:border-gold hover:text-gold"
                   >
                     {tile.label}
                   </a>
@@ -117,7 +117,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Shams Ul Haya on TikTok"
-                  className="flex h-[42px] w-[42px] items-center justify-center rounded-sm border border-cream/24 font-mono text-[11px] text-cream/80 transition-colors duration-220 ease-kaka hover:border-gold hover:text-gold"
+                  className="flex h-11 w-11 items-center justify-center rounded-sm border border-cream/24 font-mono text-[11px] text-cream/80 transition-colors duration-220 ease-kaka hover:border-gold hover:text-gold"
                 >
                   tt
                 </a>
@@ -131,13 +131,22 @@ export function SiteFooter() {
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </span>
           <div className="flex gap-7">
-            <a href="/contact/" className="transition-colors duration-220 ease-kaka hover:text-gold">
+            <a
+              href="/contact/"
+              className="inline-block transition-colors duration-220 ease-kaka hover:text-gold max-sm:py-[10px]"
+            >
               Privacy
             </a>
-            <a href="/contact/" className="transition-colors duration-220 ease-kaka hover:text-gold">
+            <a
+              href="/contact/"
+              className="inline-block transition-colors duration-220 ease-kaka hover:text-gold max-sm:py-[10px]"
+            >
               Terms
             </a>
-            <a href="/contact/" className="transition-colors duration-220 ease-kaka hover:text-gold">
+            <a
+              href="/contact/"
+              className="inline-block transition-colors duration-220 ease-kaka hover:text-gold max-sm:py-[10px]"
+            >
               Trade Licences
             </a>
           </div>

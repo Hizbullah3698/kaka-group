@@ -32,7 +32,7 @@ export function NumberedInfoRows({ eyebrow, heading, headingClassName, items }: 
           <RevealOnScroll
             key={item.number}
             delay={index * 60}
-            className="grid grid-cols-[42px_1fr] items-baseline gap-4 border-t border-ink/10 py-10 sm:grid-cols-[78px_1fr] sm:gap-[30px]"
+            className="grid grid-cols-[50px_1fr] items-baseline gap-4 border-t border-ink/10 py-10 sm:grid-cols-[78px_1fr] sm:gap-[30px]"
           >
             <span className="font-display text-[32px] leading-none text-gold-dark">{item.number}</span>
             <div>

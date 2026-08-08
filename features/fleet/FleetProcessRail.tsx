@@ -75,7 +75,7 @@ export function FleetProcessRail() {
             <RevealOnScroll
               key={step.number}
               delay={index * 60}
-              className="grid grid-cols-[44px_1fr] gap-[18px] pb-12 last:pb-0 sm:grid-cols-[96px_1fr] sm:gap-8"
+              className="grid grid-cols-[52px_1fr] gap-[18px] pb-12 last:pb-0 sm:grid-cols-[96px_1fr] sm:gap-8"
             >
               <div className="relative flex justify-end">
                 <span className="font-display text-[34px] leading-none text-gold">{step.number}</span>

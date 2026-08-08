@@ -70,7 +70,7 @@ export function DivisionHiringGrid() {
           <RevealOnScroll
             key={division.number}
             delay={index * 70}
-            className="rounded-lg border border-ink/10 bg-white p-[40px_36px] shadow-card transition-[border-color,box-shadow,transform] duration-220 ease-out hover:-translate-y-[3px] hover:border-gold/60 hover:shadow-[0_14px_34px_rgba(15,23,42,.08)]"
+            className="rounded-lg border border-ink/10 bg-white p-[28px_24px] shadow-card transition-[border-color,box-shadow,transform] duration-220 ease-out hover:-translate-y-[3px] hover:border-gold/60 hover:shadow-[0_14px_34px_rgba(15,23,42,.08)] sm:p-[40px_36px]"
           >
             <div className="mb-4 font-display text-[15px] text-gold-dark">{division.number}</div>
             <h3 className="m-0 mb-3 font-display text-[22px] text-ink">{division.title}</h3>

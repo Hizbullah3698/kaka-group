@@ -200,6 +200,17 @@
   background: rgba(201, 164, 92, 0.16) !important;
 }
 
+/* Leaflet's own touch auto-upgrade only bumps zoom buttons to 30x30px
+   (`.leaflet-touch .leaflet-bar a` in leaflet.css) — still under the 44px
+   touch-target minimum. `leaflet-touch` lands on the same element as
+   `.kaka-deira-map` (Leaflet's own container), so this is a compound
+   selector, not an ancestor/descendant one. */
+.kaka-deira-map.leaflet-touch .leaflet-control-zoom a {
+  width: 44px !important;
+  height: 44px !important;
+  line-height: 44px !important;
+}
+
 .kaka-deira-pin-dot {
   position: absolute;
   inset: 0;

@@ -42,7 +42,7 @@ export function WholesaleServicesGrid() {
           <RevealOnScroll
             key={service.title}
             delay={index * 50}
-            className={cn("border-t border-gold/[.22] py-[34px]", index % 2 === 1 && "ml-[22px]")}
+            className={cn("border-t border-gold/[.22] py-[34px]", index % 2 === 1 && "sm:ml-[22px]")}
           >
             <h3 className="mb-3 font-display text-[25px] leading-[1.28] text-cream">{service.title}</h3>
             <p className="m-0 max-w-[44ch] text-body font-light text-cream/70">{service.description}</p>

@@ -41,7 +41,7 @@ export function InternationalMarkets() {
           </p>
         </RevealOnScroll>
       </div>
-      <RevealOnScroll className="relative h-[520px] overflow-hidden border border-gold/30 bg-ink">
+      <RevealOnScroll className="relative h-[340px] overflow-hidden border border-gold/30 bg-ink sm:h-[520px]">
         <TradeMap />
       </RevealOnScroll>
       <p className="mt-[22px] font-mono text-[9px] uppercase tracking-[.2em] text-gold/70">

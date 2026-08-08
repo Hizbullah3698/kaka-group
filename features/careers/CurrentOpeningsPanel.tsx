@@ -54,7 +54,7 @@ export function CurrentOpeningsPanel() {
               href="https://wa.me/971544144755"
               target="_blank"
               rel="noopener"
-              className="flex w-max items-center gap-2.5 rounded border border-cream/40 px-[30px] py-[15px] text-body uppercase tracking-[.08em] text-cream transition duration-220 ease-kaka hover:-translate-y-0.5 hover:border-gold hover:bg-cream/10"
+              className="flex w-max items-center gap-2.5 rounded border border-cream/40 px-[30px] py-[15px] text-body uppercase tracking-[.08em] text-cream transition duration-220 ease-kaka hover:-translate-y-0.5 hover:border-gold hover:bg-cream/10 max-sm:w-full max-sm:justify-center"
             >
               <WhatsAppIcon size={20} className="text-gold" />
               WhatsApp

@@ -112,10 +112,16 @@ export function TradeMap() {
       const height = container.clientHeight;
       if (!width || !height) return;
 
+      // Fixed 24/30px insets ate a disproportionate share of a narrow mobile
+      // container (~13-15% vs ~2-4% on desktop). Scale down toward a smaller
+      // floor as the container shrinks; reproduces the original 24/30 exactly
+      // at desktop container sizes, so desktop rendering is unaffected.
+      const marginX = Math.min(24, Math.max(14, width * 0.035));
+      const marginY = Math.min(30, Math.max(16, height * 0.06));
       const projection = geoNaturalEarth1().fitExtent(
         [
-          [24, 30],
-          [width - 24, height - 30],
+          [marginX, marginY],
+          [width - marginX, height - marginY],
         ],
         land
       );
@@ -168,7 +174,7 @@ export function TradeMap() {
                 x={node.side === "left" ? node.point[0] - 9 : node.point[0] + 9}
                 y={node.point[1] + 3.5}
                 textAnchor={node.side === "left" ? "end" : "start"}
-                className="fill-cream/60 font-mono text-[9px] uppercase tracking-[.22em]"
+                className="fill-cream/60 font-mono text-[10px] uppercase tracking-[.22em]"
               >
                 {node.name}
               </text>
@@ -180,7 +186,7 @@ export function TradeMap() {
             x={geo.hub[0]}
             y={geo.hub[1] + 32}
             textAnchor="middle"
-            className="fill-gold font-mono text-[10px] uppercase tracking-[.26em]"
+            className="fill-gold font-mono text-[11px] uppercase tracking-[.26em]"
           >
             Dubai
           </text>

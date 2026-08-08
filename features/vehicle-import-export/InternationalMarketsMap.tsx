@@ -49,7 +49,7 @@ export function InternationalMarketsMap() {
           </p>
         </RevealOnScroll>
       </div>
-      <RevealOnScroll className="relative h-[520px] overflow-hidden border border-gold/30 bg-ink-deep">
+      <RevealOnScroll className="relative h-[340px] overflow-hidden border border-gold/30 bg-ink-deep sm:h-[520px]">
         <ExportRoutesMap />
       </RevealOnScroll>
       <div className="mt-9 flex flex-wrap gap-x-14 gap-y-6">

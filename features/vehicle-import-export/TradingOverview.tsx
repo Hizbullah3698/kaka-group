@@ -57,8 +57,8 @@ export function TradingOverview() {
         </RevealOnScroll>
         <div className="flex flex-wrap gap-y-4">
           {FOOTPRINT.map((item, index) => (
-            <div key={item.value} className={index < FOOTPRINT.length - 1 ? "pr-9" : ""}>
-              <div className="font-display text-[34px] leading-none text-ink">{item.value}</div>
+            <div key={item.value} className={index < FOOTPRINT.length - 1 ? "pr-9 max-sm:pr-6" : ""}>
+              <div className="font-display text-[34px] leading-none text-ink max-sm:text-[28px]">{item.value}</div>
               <div className="mt-2.5 font-mono text-[9px] uppercase tracking-eyebrow-tight text-gold-dark">
                 {item.label}
               </div>

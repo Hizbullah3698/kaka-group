@@ -105,10 +105,13 @@ export function ExportRoutesMap() {
       const height = container.clientHeight;
       if (!width || !height) return;
 
+      // Same reasoning as TradeMap's own margin formula — see its comment.
+      const marginX = Math.min(26, Math.max(15, width * 0.038));
+      const marginY = Math.min(34, Math.max(18, height * 0.066));
       const projection = geoNaturalEarth1().fitExtent(
         [
-          [26, 34],
-          [width - 26, height - 34],
+          [marginX, marginY],
+          [width - marginX, height - marginY],
         ],
         land
       );
@@ -185,7 +188,7 @@ export function ExportRoutesMap() {
               x={geo.source.side === "left" ? geo.source.point[0] - 11 : geo.source.point[0] + 11}
               y={geo.source.point[1] + 3.5 + geo.source.labelOffset}
               textAnchor={geo.source.side === "left" ? "end" : "start"}
-              className="fill-cream/62 font-mono text-[9.5px] uppercase tracking-[.2em]"
+              className="fill-cream/62 font-mono text-[10.5px] uppercase tracking-[.2em]"
             >
               {geo.source.name}
             </text>
@@ -198,7 +201,7 @@ export function ExportRoutesMap() {
                 x={node.side === "left" ? node.point[0] - 11 : node.point[0] + 11}
                 y={node.point[1] + 3.5 + node.labelOffset}
                 textAnchor={node.side === "left" ? "end" : "start"}
-                className="fill-gold font-mono text-[9.5px] uppercase tracking-[.2em]"
+                className="fill-gold font-mono text-[10.5px] uppercase tracking-[.2em]"
               >
                 {node.name}
               </text>
@@ -211,7 +214,7 @@ export function ExportRoutesMap() {
             x={geo.hub[0]}
             y={geo.hub[1] + 33}
             textAnchor="middle"
-            className="fill-cream font-mono text-[10.5px] uppercase tracking-[.26em]"
+            className="fill-cream font-mono text-[11.5px] uppercase tracking-[.26em]"
           >
             UAE
           </text>

@@ -325,14 +325,14 @@ export function SiteHeader() {
           <Link
             href="/"
             onClick={() => setMobileOpen(false)}
-            className="min-h-[43px] border-b border-ink/[.08] py-4 text-[17px] text-ink"
+            className="min-h-11 border-b border-ink/[.08] py-4 text-[17px] text-ink"
           >
             Home
           </Link>
           <Link
             href="/#about"
             onClick={() => setMobileOpen(false)}
-            className="min-h-[43px] border-b border-ink/[.08] py-4 text-[17px] text-ink"
+            className="min-h-11 border-b border-ink/[.08] py-4 text-[17px] text-ink"
           >
             About
           </Link>
@@ -347,7 +347,7 @@ export function SiteHeader() {
                 href={division.href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "min-h-[43px] py-3 pl-4 text-body",
+                  "min-h-11 py-3 pl-4 text-body",
                   isCurrent ? "border-l-2 border-gold text-gold-dark" : "text-graphite"
                 )}
               >
@@ -358,7 +358,7 @@ export function SiteHeader() {
           <Link
             href="/contact/"
             onClick={() => setMobileOpen(false)}
-            className="mt-5 min-h-[43px] border-t border-ink/[.08] py-4 text-[17px] text-ink"
+            className="mt-5 min-h-11 border-t border-ink/[.08] py-4 text-[17px] text-ink"
           >
             Contact
           </Link>
