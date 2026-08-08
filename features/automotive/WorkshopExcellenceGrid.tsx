@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 
 const BAYS = [
   {
@@ -50,6 +51,8 @@ export function WorkshopExcellenceGrid() {
             <Image
               src={bay.image.src}
               alt={bay.image.alt}
+              placeholder="blur"
+              blurDataURL={blurPlaceholders[bay.image.src]}
               fill
               sizes="(min-width: 1200px) 32vw, (min-width: 768px) 45vw, 100vw"
               className="object-cover"

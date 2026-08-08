@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { footerNav } from "@/data/nav";
 import { getRouteConfig } from "@/data/routes";
 import { siteConfig } from "@/data/site";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 
 const socialTiles = [
   { label: "in", href: siteConfig.social.linkedin, name: "LinkedIn" },
@@ -38,6 +39,8 @@ export function SiteFooter() {
               <Image
                 src="/assets/kaka-logo.jpg"
                 alt="KAKA Group of Companies"
+                placeholder="blur"
+                blurDataURL={blurPlaceholders["/assets/kaka-logo.jpg"]}
                 width={752}
                 height={621}
                 className="h-[92px] w-auto mix-blend-multiply"

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 
 interface Category {
@@ -63,6 +64,8 @@ function CategoryCard({ category, tall, sizes }: { category: Category; tall: boo
         <Image
           src={category.image.src}
           alt={category.image.alt}
+          placeholder="blur"
+          blurDataURL={blurPlaceholders[category.image.src]}
           fill
           sizes={sizes}
           style={category.image.objectPosition ? { objectPosition: category.image.objectPosition } : undefined}

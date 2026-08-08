@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 
 interface FeatureCategory {
@@ -104,6 +105,8 @@ export function VehicleCategoryGrid() {
               <Image
                 src={category.image.src}
                 alt={category.image.alt}
+                placeholder="blur"
+                blurDataURL={blurPlaceholders[category.image.src]}
                 fill
                 sizes="(min-width: 768px) 66vw, 100vw"
                 className="object-cover"
@@ -136,6 +139,8 @@ export function VehicleCategoryGrid() {
               <Image
                 src={category.image.src}
                 alt={category.image.alt}
+                placeholder="blur"
+                blurDataURL={blurPlaceholders[category.image.src]}
                 fill
                 sizes="(min-width: 1200px) 24vw, (min-width: 768px) 45vw, 100vw"
                 className="object-cover"

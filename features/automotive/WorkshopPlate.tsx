@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 const SPECS = [
@@ -20,7 +21,15 @@ export function WorkshopPlate() {
   return (
     <>
       <div className="relative h-[clamp(420px,58vw,640px)] overflow-hidden">
-        <Image src="/uploads/Hero%20Workshop.jpg" alt="The KAKA Group workshop floor" fill sizes="100vw" className="object-cover" />
+        <Image
+          src="/uploads/Hero%20Workshop.jpg"
+          alt="The KAKA Group workshop floor"
+          placeholder="blur"
+          blurDataURL={blurPlaceholders["/uploads/Hero%20Workshop.jpg"]}
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"

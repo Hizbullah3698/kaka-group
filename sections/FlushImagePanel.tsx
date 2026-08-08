@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "@/sections/SectionHeader";
 
@@ -64,7 +65,15 @@ export function FlushImagePanel({
       className="relative h-[260px] overflow-hidden sm:h-auto sm:min-h-[var(--flush-image-min-h)]"
       style={{ ["--flush-image-min-h" as string]: `${imageMinHeight}px` }}
     >
-      <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+      <Image
+        src={image.src}
+        alt={image.alt}
+        placeholder="blur"
+        blurDataURL={blurPlaceholders[image.src]}
+        fill
+        sizes="(min-width: 768px) 50vw, 100vw"
+        className="object-cover"
+      />
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"

@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { siteConfig } from "@/data/site";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 const DeiraOfficeMap = dynamic(() => import("@/components/maps/DeiraOfficeMap").then((mod) => mod.DeiraOfficeMap), {
@@ -106,6 +107,8 @@ export function OfficeLocationSection() {
               <Image
                 src="/uploads/Corporate%20office%20entrance%20Dubai.jpg"
                 alt="Glass-walled meeting room on the KAKA Group office floor"
+                placeholder="blur"
+                blurDataURL={blurPlaceholders["/uploads/Corporate%20office%20entrance%20Dubai.jpg"]}
                 fill
                 sizes="(min-width: 768px) 22vw, 45vw"
                 className="object-cover"
@@ -116,6 +119,8 @@ export function OfficeLocationSection() {
               <Image
                 src="/uploads/Luxury%20office%20reception.jpg"
                 alt="Reception desk in the Rolex Twin Tower lobby"
+                placeholder="blur"
+                blurDataURL={blurPlaceholders["/uploads/Luxury%20office%20reception.jpg"]}
                 fill
                 sizes="(min-width: 768px) 22vw, 45vw"
                 className="object-cover"

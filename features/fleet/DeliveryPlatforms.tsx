@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 const IMAGES = [
@@ -29,7 +30,15 @@ export function DeliveryPlatforms() {
       <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))]">
         {IMAGES.map((image) => (
           <div key={image.src} className="relative h-[280px] overflow-hidden sm:h-auto sm:min-h-[420px]">
-            <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <Image
+              src={image.src}
+              alt={image.alt}
+              placeholder="blur"
+              blurDataURL={blurPlaceholders[image.src]}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"

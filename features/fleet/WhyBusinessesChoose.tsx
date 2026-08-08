@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 import type { ProcessStep } from "@/types/content";
 
@@ -65,6 +66,8 @@ export function WhyBusinessesChoose() {
             <Image
               src="/uploads/business%20discussion.jpg"
               alt="Fleet review meeting room"
+              placeholder="blur"
+              blurDataURL={blurPlaceholders["/uploads/business%20discussion.jpg"]}
               fill
               sizes="(min-width: 1200px) 33vw, 100vw"
               className="object-cover"

@@ -8,6 +8,7 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { divisions } from "@/data/nav";
 import { getRouteConfig } from "@/data/routes";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -144,6 +145,8 @@ export function SiteHeader() {
           <Image
             src="/assets/kaka-mark.png"
             alt=""
+            placeholder="blur"
+            blurDataURL={blurPlaceholders["/assets/kaka-mark.png"]}
             width={1254}
             height={1254}
             priority

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 interface ChainStep {
@@ -80,6 +81,8 @@ export function SupplyChainRail() {
             <Image
               src="/uploads/dry%20fruit%20ware%20house.jpg"
               alt="Distribution warehouse in operation"
+              placeholder="blur"
+              blurDataURL={blurPlaceholders["/uploads/dry%20fruit%20ware%20house.jpg"]}
               fill
               sizes="(min-width: 768px) 45vw, 100vw"
               className="object-cover"

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 
 interface OpportunityStat {
@@ -82,6 +83,8 @@ export function OpportunityShowcase() {
               <Image
                 src={opportunity.image.src}
                 alt={opportunity.image.alt}
+                placeholder="blur"
+                blurDataURL={blurPlaceholders[opportunity.image.src]}
                 fill
                 sizes="(min-width: 768px) 48vw, 100vw"
                 className="object-cover"

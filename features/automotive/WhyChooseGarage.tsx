@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 interface Reason {
@@ -85,6 +86,8 @@ export function WhyChooseGarage() {
           <Image
             src="/uploads/Vehicle%20Diagnostics%20-%20Technician%20using%20a%20diagnostic%20scanner..jpg"
             alt="Technician running a diagnostic scan"
+            placeholder="blur"
+            blurDataURL={blurPlaceholders["/uploads/Vehicle%20Diagnostics%20-%20Technician%20using%20a%20diagnostic%20scanner..jpg"]}
             fill
             sizes="100vw"
             className="object-cover"

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 
 /**
  * The two-photo overlapping composition in Home's About section, each image
@@ -21,6 +22,8 @@ export function AboutParallaxImages() {
           <Image
             src="/uploads/dry%20fruits.jpg"
             alt="Trading floor of dried fruit and nuts"
+            placeholder="blur"
+            blurDataURL={blurPlaceholders["/uploads/dry%20fruits.jpg"]}
             fill
             sizes="(min-width: 1200px) 38vw, 82vw"
             className="object-cover"
@@ -36,6 +39,8 @@ export function AboutParallaxImages() {
           <Image
             src="/uploads/modern-villa.jpg.jpg"
             alt="Villa exterior at golden hour"
+            placeholder="blur"
+            blurDataURL={blurPlaceholders["/uploads/modern-villa.jpg.jpg"]}
             fill
             sizes="(min-width: 1200px) 22vw, 42vw"
             className="object-cover"

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 
 export interface DivisionRowItem {
@@ -44,6 +45,8 @@ export function DivisionRow({ item, reverse = false, id, tone = "white" }: Divis
             <Image
               src={item.image.src}
               alt={item.image.alt}
+              placeholder="blur"
+              blurDataURL={blurPlaceholders[item.image.src]}
               fill
               sizes="(min-width: 1200px) 46vw, 100vw"
               className="object-cover transition-transform duration-700 ease-kaka hover:scale-[1.06]"

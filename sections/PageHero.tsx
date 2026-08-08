@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/Button";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { noiseBackground } from "@/lib/tokens";
 import { cn } from "@/lib/utils";
 import type { HeroCta, HeroSlide } from "@/types/hero";
@@ -132,6 +133,8 @@ export function PageHero({
           <Image
             src={image[0].src}
             alt={image[0].alt}
+            placeholder="blur"
+            blurDataURL={blurPlaceholders[image[0].src]}
             fill
             priority
             sizes="100vw"

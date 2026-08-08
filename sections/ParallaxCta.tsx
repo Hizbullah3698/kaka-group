@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { noiseBackground } from "@/lib/tokens";
 import { cn } from "@/lib/utils";
 import type { HeroCta } from "@/types/hero";
@@ -67,6 +68,8 @@ export function ParallaxCta({
         <Image
           src={image.src}
           alt={image.alt}
+          placeholder="blur"
+          blurDataURL={blurPlaceholders[image.src]}
           fill
           sizes="100vw"
           className="object-cover"

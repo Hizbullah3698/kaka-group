@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 const SERVICES = [
@@ -67,6 +68,8 @@ export function ImportExportServices() {
           <Image
             src="/uploads/checking%20a%20vehicle%20before%20shipment..jpg"
             alt="Vehicle inspected on a lift before shipment"
+            placeholder="blur"
+            blurDataURL={blurPlaceholders["/uploads/checking%20a%20vehicle%20before%20shipment..jpg"]}
             fill
             sizes="100vw"
             className="object-cover"

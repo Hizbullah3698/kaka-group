@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 
 interface FleetTile {
   image: { src: string; alt: string };
@@ -59,6 +60,8 @@ export function OurFleetGrid() {
               <Image
                 src={tile.image.src}
                 alt={tile.image.alt}
+                placeholder="blur"
+                blurDataURL={blurPlaceholders[tile.image.src]}
                 fill
                 sizes="(min-width: 1200px) 24vw, (min-width: 768px) 45vw, 100vw"
                 className="object-cover transition-transform duration-1200 ease-kaka hover:scale-105"
@@ -82,6 +85,8 @@ export function OurFleetGrid() {
         <Image
           src="/uploads/delivery%20fleet%20UAE.png"
           alt="Business fleet vehicles in KAKA Group livery"
+          placeholder="blur"
+          blurDataURL={blurPlaceholders["/uploads/delivery%20fleet%20UAE.png"]}
           width={1400}
           height={420}
           sizes="100vw"

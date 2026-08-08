@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 const COMMITMENTS = [
@@ -28,7 +29,15 @@ export function FleetStatistics() {
   return (
     <div className="relative overflow-hidden">
       <div ref={bgRef} className="absolute inset-0 h-[118%] w-full opacity-[.16]">
-        <Image src="/uploads/fleet%20operations.jpg" alt="" fill sizes="100vw" className="object-cover" />
+        <Image
+          src="/uploads/fleet%20operations.jpg"
+          alt=""
+          placeholder="blur"
+          blurDataURL={blurPlaceholders["/uploads/fleet%20operations.jpg"]}
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
       </div>
       <div
         aria-hidden="true"

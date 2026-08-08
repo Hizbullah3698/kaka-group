@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 interface PhotoLine {
@@ -65,7 +66,15 @@ export function ProductPortfolio() {
       <div className="grid grid-cols-1 gap-px bg-gold/[.18] sm:grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))]">
         {PHOTO_LINES.map((line) => (
           <RevealOnScroll key={line.name} className="relative h-[280px] overflow-hidden border border-gold/28 sm:h-[340px]">
-            <Image src={line.image.src} alt={line.image.alt} fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
+            <Image
+              src={line.image.src}
+              alt={line.image.alt}
+              placeholder="blur"
+              blurDataURL={blurPlaceholders[line.image.src]}
+              fill
+              sizes="(min-width: 768px) 25vw, 100vw"
+              className="object-cover"
+            />
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-deep/0 to-ink-deep/[.86]"

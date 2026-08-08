@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 interface ServiceItem {
@@ -69,6 +70,8 @@ export function ServiceList() {
               <Image
                 src="/uploads/real%20estate.jpg"
                 alt="Handover of keys after a completed transaction"
+                placeholder="blur"
+                blurDataURL={blurPlaceholders["/uploads/real%20estate.jpg"]}
                 fill
                 sizes="(min-width: 768px) 45vw, 100vw"
                 className="object-cover"

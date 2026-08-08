@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { cn } from "@/lib/utils";
 
 interface Sector {
@@ -72,6 +73,8 @@ export function SectorsGrid() {
             <Image
               src={sector.image.src}
               alt={sector.image.alt}
+              placeholder="blur"
+              blurDataURL={blurPlaceholders[sector.image.src]}
               fill
               sizes={sector.large ? "100vw" : "(min-width: 768px) 32vw, 100vw"}
               className="object-cover transition-transform duration-[800ms] ease-kaka group-hover:scale-105"

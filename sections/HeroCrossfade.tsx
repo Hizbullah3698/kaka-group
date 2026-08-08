@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import type { HeroSlide } from "@/types/hero";
 
 interface HeroCrossfadeProps {
@@ -45,6 +46,8 @@ export function HeroCrossfade({ slides, intervalMs = 6000 }: HeroCrossfadeProps)
           <Image
             src={slide.src}
             alt={slide.alt}
+            placeholder="blur"
+            blurDataURL={blurPlaceholders[slide.src]}
             fill
             priority={index === 0}
             sizes="100vw"

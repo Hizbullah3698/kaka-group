@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/Button";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 
 /**
  * Home's closing CTA band: parallax background photo, bordered panel,
@@ -24,6 +25,8 @@ export function HomeCtaBand() {
         <Image
           src="/uploads/dubai-real-estate-houses.jpg.jpg"
           alt=""
+          placeholder="blur"
+          blurDataURL={blurPlaceholders["/uploads/dubai-real-estate-houses.jpg.jpg"]}
           fill
           sizes="100vw"
           className="object-cover opacity-[.28]"

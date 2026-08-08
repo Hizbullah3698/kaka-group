@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useParallax } from "@/hooks/useParallax";
+import { blurPlaceholders } from "@/lib/blurPlaceholders";
 import { SectionHeader } from "@/sections/SectionHeader";
 
 const STAGES = [
@@ -35,6 +36,8 @@ export function ExportJourneySteps() {
         <Image
           src="/uploads/Hero%20-%20Vehicle%20loading%20at%20a%20port%20or%20premium%20export%20scene..jpg"
           alt=""
+          placeholder="blur"
+          blurDataURL={blurPlaceholders["/uploads/Hero%20-%20Vehicle%20loading%20at%20a%20port%20or%20premium%20export%20scene..jpg"]}
           fill
           sizes="100vw"
           className="object-cover"
