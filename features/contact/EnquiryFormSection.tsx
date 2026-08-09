@@ -1,19 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import type { FormEvent } from "react";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { submitEnquiry } from "@/features/contact/actions";
+import { DIVISIONS } from "@/features/contact/divisions";
 import { cn } from "@/lib/utils";
-
-const DIVISIONS = [
-  "Real Estate",
-  "Dry Fruits Trading",
-  "Fleet Management",
-  "Automotive Garage",
-  "Vehicle Import & Export",
-  "General Inquiry",
-];
 
 const STEPS = [
   { number: "01", text: "Your enquiry is routed to the division you selected, not a shared inbox." },
@@ -123,19 +116,33 @@ function DivisionField() {
  * because they share this one section's grid and neither reappears
  * elsewhere.
  *
- * Submission has no real backend target in this handoff (no CMS/API was
- * specified anywhere in the project), so `onSubmit` prevents the default
- * navigation and shows a local confirmation state — the `sent` flag the
- * source's own removed `DCLogic` class already declared in its `state`.
- * Wiring this to a real endpoint is flagged in the page report as a
- * pre-launch follow-up, not invented here.
+ * Submits via the `submitEnquiry` Server Action (features/contact/actions.ts)
+ * rather than a native form POST, so the existing `sent` confirmation state
+ * and floating-label UX stay client-side and there's no full navigation.
+ * `company_website` and `form_rendered_at` below are anti-spam fields read
+ * by that action — see its doc comment for how they're used.
  */
 export function EnquiryFormSection() {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [renderedAt] = useState(() => Date.now());
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSent(true);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    setError(null);
+
+    startTransition(async () => {
+      const result = await submitEnquiry(formData);
+      if (result.ok) {
+        setSent(true);
+        form.reset();
+      } else {
+        setError(result.error ?? "Something went wrong. Please try again.");
+      }
+    });
   }
 
   return (
@@ -147,6 +154,16 @@ export function EnquiryFormSection() {
         <div className="mb-5 font-mono text-[10px] uppercase tracking-[.34em] text-gold-dark">Enquiry</div>
         <h2 className="m-0 mb-11 font-display text-[31px] leading-[1.25] text-ink">Tell us what you need.</h2>
         <form onSubmit={handleSubmit} className="grid gap-[30px]">
+          {/* Honeypot: hidden from sighted and screen-reader users alike, so
+              only a bot filling every field it finds will populate this. */}
+          <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label>
+              Leave this field blank
+              <input type="text" name="company_website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
+          <input type="hidden" name="form_rendered_at" value={renderedAt} />
+
           <div className="grid gap-[30px] [grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr))]">
             <FloatingField name="name" label="Full name" autoComplete="name" required />
             <FloatingField name="email" label="Email address" type="email" autoComplete="email" required />
@@ -159,15 +176,16 @@ export function EnquiryFormSection() {
           <div className="mt-2.5 flex flex-wrap items-center gap-[18px]">
             <button
               type="submit"
-              className="flex w-max items-center gap-3.5 rounded bg-gold px-8 py-4 text-body uppercase tracking-[.08em] text-ink shadow-gold transition duration-220 ease-kaka hover:-translate-y-0.5 hover:bg-gold-hover hover:shadow-gold-hover"
+              disabled={isPending}
+              className="flex w-max items-center gap-3.5 rounded bg-gold px-8 py-4 text-body uppercase tracking-[.08em] text-ink shadow-gold transition duration-220 ease-kaka hover:-translate-y-0.5 hover:bg-gold-hover hover:shadow-gold-hover disabled:pointer-events-none disabled:opacity-60"
             >
-              Send Enquiry
+              {isPending ? "Sending…" : "Send Enquiry"}
               <span aria-hidden="true" className="text-[15px]">
                 &#8594;
               </span>
             </button>
             <span className="text-[14px] text-graphite" role="status">
-              {sent ? "Thanks — we'll reply within one working day." : ""}
+              {error ? <span className="text-red-600">{error}</span> : sent ? "Thanks — we'll reply within one working day." : ""}
             </span>
           </div>
         </form>
