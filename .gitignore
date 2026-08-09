@@ -37,5 +37,9 @@ next-env.d.ts
 # and the 52MB source zip) — kept locally for reference, not part of the deployable app
 /design-reference/
 
-# local-only Claude Code tool permissions
-.claude/settings.local.json
+# local-only editor/tooling config, not meant for a client-facing repo
+/.claude/
+/.vscode/settings.json
+
+# internal build documentation and prompts used to hand off the design
+/design_handoff_kaka_group/
