@@ -33,8 +33,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# design source archive (52MB, redundant with the individual .dc.html files already tracked)
-KAKA Group Premium Website Design.zip
+# design reference bundle (.dc.html design files, support.js runtime, standalone map pages,
+# and the 52MB source zip) — kept locally for reference, not part of the deployable app
+/design-reference/
 
 # local-only Claude Code tool permissions
 .claude/settings.local.json
