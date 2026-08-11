@@ -20,7 +20,7 @@ export const homeDivisions: (DivisionRowItem & { id: string })[] = [
     description:
       "Sourcing and wholesale distribution of premium nuts and dried fruit, shipped from origin markets to buyers across the Gulf.",
     bullets: ["Almonds, pistachios, walnuts, raisins", "Grading, packing and cold storage", "Wholesale and container-load supply"],
-    image: { src: "/uploads/Walnut.jpg.jpg", alt: "Shelled walnuts" },
+    image: { src: "/uploads/pistachios.jpg", alt: "Shelled pistachios" },
     href: "/dry-fruits-trading/",
   },
   {
