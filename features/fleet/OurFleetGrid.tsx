@@ -9,19 +9,23 @@ interface FleetTile {
   tag: string;
   /** Every second tile drops down on desktop — matches source's `data-offset` (`margin-top:56px`). */
   offset?: boolean;
+  /** Poster-style images that must stay fully visible rather than crop-filled like the fleet photos. */
+  contain?: boolean;
 }
 
 const TILES: FleetTile[] = [
   {
-    image: { src: "/uploads/talabat.jpg", alt: "Delivery Motorcycles" },
+    image: { src: "/uploads/swiftmaxdelivery.jpg", alt: "Delivery Motorcycles" },
     title: "Delivery Motorcycles",
     tag: "Last-mile · food platforms",
+    contain: true,
   },
   {
-    image: { src: "/uploads/salah-regouane-x--RpqqTbbg-unsplash.jpg", alt: "Electric Bikes" },
+    image: { src: "/uploads/swiftmaxrider.jpg", alt: "Electric Bikes" },
     title: "Electric Bikes",
     tag: "Zoned urban delivery",
     offset: true,
+    contain: true,
   },
   {
     image: { src: "/uploads/noon%20bike%20image.jpg", alt: "Delivery Cars" },
@@ -64,7 +68,11 @@ export function OurFleetGrid() {
                 blurDataURL={blurPlaceholders[tile.image.src]}
                 fill
                 sizes="(min-width: 1200px) 24vw, (min-width: 768px) 45vw, 100vw"
-                className="object-cover transition-transform duration-1200 ease-kaka hover:scale-105"
+                className={
+                  tile.contain
+                    ? "object-contain transition-transform duration-1200 ease-kaka hover:scale-105"
+                    : "object-cover transition-transform duration-1200 ease-kaka hover:scale-105"
+                }
               />
               <span
                 aria-hidden="true"
