@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ExportJourneySteps } from "@/features/vehicle-import-export/ExportJourneySteps";
+import { HeroCtaRow } from "@/features/vehicle-import-export/HeroCtaRow";
 import { ImportExportServices } from "@/features/vehicle-import-export/ImportExportServices";
 import { InternationalMarketsMap } from "@/features/vehicle-import-export/InternationalMarketsMap";
 import { TradingOverview } from "@/features/vehicle-import-export/TradingOverview";
 import { VehicleCategoryGrid } from "@/features/vehicle-import-export/VehicleCategoryGrid";
+import { WatchVideosCta } from "@/features/vehicle-import-export/WatchVideosCta";
 import { WhyShamsUlHaya } from "@/features/vehicle-import-export/WhyShamsUlHaya";
 import { getJsonLdGraph } from "@/lib/seo/jsonld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -67,11 +69,15 @@ export default function VehicleImportExportPage() {
           "linear-gradient(180deg, rgba(11,18,32,.66) 0%, rgba(11,18,32,0) 32%, rgba(11,18,32,.9) 100%)",
         ]}
         noiseOpacity={0.42}
-        ctas={[
-          { label: "Request Vehicle Sourcing", href: "#sourcing" },
-          { label: "Speak with Our Export Team", href: "https://wa.me/971544144755", tone: "secondary", external: true },
-        ]}
-      />
+        ctas={[]}
+      >
+        <HeroCtaRow
+          ctas={[
+            { label: "Request Vehicle Sourcing", href: "#sourcing" },
+            { label: "Speak with Our Export Team", href: "https://wa.me/971544144755", tone: "secondary", external: true },
+          ]}
+        />
+      </PageHero>
 
       <section className="border-b border-gold/30 bg-cream">
         <div className="wrap py-section-sm sm:py-section-md lg:py-section-lg">
@@ -113,6 +119,8 @@ export default function VehicleImportExportPage() {
           />
         </div>
       </section>
+
+      <WatchVideosCta />
 
       <ParallaxCta
         id="sourcing"
